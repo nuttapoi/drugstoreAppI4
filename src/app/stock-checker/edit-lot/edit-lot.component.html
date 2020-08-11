@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start" color="primary"></ion-menu-button>
+    <ion-item lines="none">
+      <ion-label color="primary" class="myFont">แก้ไขข้อมูลแต่ล่ะล๊อต!</ion-label>
+      <ion-toggle [(ngModel)]="blnEditQty" [checked]="blnEditQty" (ionChange)="navEditQty()"></ion-toggle>
+    </ion-item>
+    <ion-button (click)="scan()" fill="clear" slot="end">
+      <ion-icon name="barcode" color="primary" size="large"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <ion-input type="text" #searchBox id="search-box" [(ngModel)]="textSearch" (keyup)="search(searchBox.value)" placeholder="พิมพ์ชื่อสินค้า"></ion-input>
+    <ul class="search-result">
+        <li *ngFor="let stock of stocks$ | async"  (click)="onSelect(stock)"> {{stock.businessName}}></li>
+    </ul>
+  <div class="myDiv" *ngIf="lotsDetail.length > 0">
+      <span id="alignleft">{{lotsDetail[0].businessName}}</span>
+      <span id="alignright">หน่วย: {{lotsDetail[0].unitNameA}}</span>
+  </div>
+  <div style="clear: both;"></div>
+  <ion-list *ngFor="let lot of lotsDetail">
+    <ion-item lines="none" class="myFont">
+      <ion-label>Exp: </ion-label>
+      <ion-input class="form-control" type="text" [(ngModel)]="lot.dateExpire"></ion-input>
+    </ion-item>
+    <ion-item class="myFont">
+      <ion-label>Qty: </ion-label>
+      <ion-input class="form-control" type="text" [(ngModel)]="lot.qtyNow"></ion-input> 
+      <ion-input class="form-control" type="text" [(ngModel)]="lot.lotNumber" placeholder="ล๊อต"></ion-input> 
+    </ion-item>
+  </ion-list>  
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="saveEditLots()">
+    <ion-icon name="save"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>
+<!-- <ion-footer>
+  <h2>&nbsp;&nbsp;</h2>
+</ion-footer> -->

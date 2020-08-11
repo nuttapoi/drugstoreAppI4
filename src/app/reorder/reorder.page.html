@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start" color="primary"></ion-menu-button>
+    <ion-text color="primary">เลือกผู้ขายครับ!</ion-text>   
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+      <div *ngFor="let item of suppliers" class="supplierList">
+        <a routerLink="2/{{item.id}}" routerDirection="forward">
+             {{item.name}}
+        </a>
+   </div>
+</ion-content>

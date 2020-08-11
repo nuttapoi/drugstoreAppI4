@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button color="primary" slot="start"></ion-menu-button>
+    <ion-item>
+      <ion-label color="primary" class="myFont">แสดงยอดพนักงาน</ion-label>
+      <ion-toggle [(ngModel)]="blnEmployee" [checked]="blnEmployee" (ionChange)="getReport()"></ion-toggle>
+    </ion-item>
+    <ion-button slot="end" fill="clear" (click)="getReport()">
+      <ion-icon name="search" size="large" color="primary"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <canvas baseChart 
+  [datasets]="chartData" 
+  [labels]="chartLabels" 
+  [options]="chartOptions" 
+  [colors]="chartColors"
+  [legend]="showLegend" 
+  [chartType]="chartType">
+</canvas>
+  <ion-grid>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-icon name="calendar"></ion-icon>
+        <ion-text color="primary"><small>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fromDate"></ion-datetime>
+        </small></ion-text>
+      </ion-item>
+  </ion-col>
+  <ion-col size="6">
+    <ion-item>
+        <ion-icon name="calendar"></ion-icon>
+        <ion-text color="primary"><small>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="toDate"></ion-datetime>
+        </small>
+        </ion-text>
+    </ion-item>
+  </ion-col>
+  </ion-row>
+  </ion-grid>
+<ngx-datatable class="material" style="width: 100%;"
+        [rows]="rows" 
+        [loadingIndicator]="loadingIndicator"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [reorderable]="reorderable">
+    <ngx-datatable-column prop="period" minWidth="80" name="วันที่">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | date: 'dd/MM'}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column *ngIf="blnEmployee" prop="loginName" minWidth="100" name="พนักงาน">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value }}
+      </ng-template>
+    </ngx-datatable-column>
+      <ngx-datatable-column prop="customerCount" maxWidth="60" name="ลูกค้า">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="sale" name="ขาย">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value | number: '1.0-0'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="profit" name="กำไร">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value | number: '1.0-0'}}
+        </ng-template>
+      </ngx-datatable-column>    
+      <ngx-datatable-column prop="margin" name="%">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value | number: '1.0-0'}}          
+        </ng-template>
+      </ngx-datatable-column>  
+   </ngx-datatable>
+</ion-content>

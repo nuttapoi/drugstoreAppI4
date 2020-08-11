@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start" color="primary"></ion-menu-button>
+    <ion-text color="primary">
+      ตั้งค่าServer!
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+<!--     <ion-card-header>
+      <ion-card-subtitle>อ่านด้วย</ion-card-subtitle>
+      <ion-card-title>Card Title</ion-card-title>
+    </ion-card-header> -->
+
+    <ion-card-content>
+        ก่อนใช้ App นี้ต้องทำการสร้าง Web Server ขึ้นในร้าน และสามารถAccess ได้จากข้างนอกได้ก่อน
+      <ion-text class="myFont">
+        <ion-button fill="clear" (click)="openWebpage()">วิธีการทำ PortForward</ion-button>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+        ให้ถอน แล้วลง drugstoreRxApi (ใน Control Panel) ให้เป็น Version3      
+        DrugstoreRxApi Version3 ให้Login แล้วดาวน์โหลดจากหน้าสมาชิก
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>ตั้งค่าเวบ drugstorerx4.0</ion-card-subtitle>
+      <!-- <ion-card-title>ตั้งค่าเวบ drugstorerx4.0</ion-card-title> -->
+    </ion-card-header>
+    <ion-card-content>
+    <form (ngSubmit)="saved()">
+      <ion-item class="myFont">
+        <ion-label>url</ion-label>
+        <ion-input type="text" [(ngModel)]="serverName" name="server" class="form-control" placeholder="http://192.168.1.5:3001"></ion-input>
+      </ion-item>
+      <ion-button type="submit" fill="outline">
+        <ion-icon slot="start" name="save" color=primary size="large"></ion-icon>
+        บันทึก
+      </ion-button>
+    </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

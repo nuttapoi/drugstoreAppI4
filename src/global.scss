@@ -1,0 +1,138 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// @import '~@swimlane/ngx-datatable/index.css';
+// @import '~@swimlane/ngx-datatable/themes/material.scss';
+/* @import '~@swimlane/ngx-datatable/assets/icons.css';
+
+/* HeroSearch private styles */
+.search-result li {
+  overflow: hidden;
+  height: 2em;
+  font-size: small;
+  padding: 0px;
+  color: blue; 
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.search-result li:hover {
+  color: #4c8dff;
+  margin-left: 0.5em;
+}
+
+.search-result li a {
+  color: #888;
+  display: block;
+  text-decoration: none;
+}
+
+.search-result li a:hover {
+  color: white;
+}
+.search-result li a:active {
+  color: white;
+}
+#search-box {
+  font-size: small;
+  border-bottom-width: 1px;
+  border-bottom-color: #989aa2;
+  border-bottom-style: solid;
+}
+
+
+ul.search-result {
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.myDiv {
+    background-color: #4c8dff !important;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #3171e0;
+    min-height: 2em;
+    font-size: smaller;
+}
+
+.form-control {
+    margin-left: 0.3em;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #989aa2;
+    height: 1.6em;
+}
+
+#alignleft {
+    float: left;
+    margin-top: -0.3em;
+    margin-left: 0.5em;
+}
+#alignright {
+    float: right !important;
+    margin-top: -0.3em;
+    margin-left: 0.5em;
+}
+
+.myFont { 
+    font-size: smaller !important;
+    height: 3em; 
+}
+
+.supplierList {
+    height: 2.3em;
+    margin-left: 1em;
+    border-bottom-width: 0.1em !important;
+    border-bottom-color: #989aa2;
+    border-bottom-style: solid;
+    font-size: smaller;
+}
+.supplierList a {
+    color: #4c8dff;
+}
+.supplierList a:hover {
+    color: #989aa2;
+}
+
+.myrow {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  height: 15em;
+  background-color: #4c8dff;
+}
+.heroes li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+
+.datatable-scroll {display: inherit !important;}

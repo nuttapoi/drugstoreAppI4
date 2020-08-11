@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start" color="primary"></ion-menu-button>
+    <ion-item lines="none">
+      <ion-label color="primary" class="myFont">ปรับยอดรวม</ion-label>
+      <ion-toggle [(ngModel)]="blnEditLot" [checked]="blnEditLot" (ionChange)="navEditLot()"></ion-toggle>
+    </ion-item>
+    <ion-button (click)="scan()" fill="clear" slot="end">
+      <ion-icon name="barcode" color="primary" size="large"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+<ion-input type="text" #searchBox id="search-box" [(ngModel)]="textSearch" (keyup)="search(searchBox.value)" placeholder="พิมพ์ชื่อสินค้า"></ion-input>
+  <ul class="search-result">
+    <li *ngFor="let stock of stocks$ | async"  (click)="onSelect(stock)"> {{stock.businessName}}></li>
+  </ul>
+  <ion-list *ngIf="stockDetail">
+    <ion-item color="primary" lines="none" class="myFont">
+      <ion-label>{{stockDetail.businessName}} [{{stockDetail.unitNameA}}]</ion-label>
+    </ion-item>
+    <ion-item>  
+        <ion-thumbnail slot="start">
+           <img [src]="stockDetail.imageBase64" (click)="updatePhoto()"> 
+        </ion-thumbnail>  
+        <ion-label class="myFont">[ราคา: {{stockDetail.saleA}}] [ทุนล่าสุด: {{stockDetail.latestCost | number:'0.0-2'}}]</ion-label>  
+    </ion-item>  
+    <ion-item class="myFont">[เหลือ: {{stockDetail.qtyNowAll}}] เหลือจริง: 
+      <ion-input class="form-control" type="number" [(ngModel)]="stockDetail.qtyActual"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="saveQty()">
+    <ion-icon name="save"></ion-icon>
+  </ion-fab-button>
+  </ion-fab>
+  <!-- <ion-button *ngIf="stockDetail" block (click)="save()" fill="outline">
+    <ion-icon slot="start" name="save" color=primary size="large"></ion-icon>
+    บันทึก
+  </ion-button> -->
+</ion-content>
