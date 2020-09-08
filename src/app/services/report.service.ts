@@ -1,7 +1,7 @@
 import { Injectable, OnInit, Directive } from '@angular/core';
 // import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Plugins } from '@capacitor/core';
 // import 'rxjs/add/operator/toPromise';

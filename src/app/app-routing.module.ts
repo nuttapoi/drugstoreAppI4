@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ReorderPageModule } from './reorder/reorder.module';
 
 const routes: Routes = [
   {
@@ -28,10 +29,6 @@ const routes: Routes = [
     loadChildren: () => import('./setting/setting.module').then( m => m.SettingPageModule)
   },
   {
-    path: 'inventory',
-    loadChildren: () => import('./inventory/inventory.module').then( m => m.InventoryPageModule)
-  },
-  {
     path: 'kaidee',
     loadChildren: () => import('./kaidee/kaidee.module').then( m => m.KaideePageModule)
   },
@@ -48,13 +45,19 @@ const routes: Routes = [
     loadChildren: () => import('./stock-detail/stock-detail.module').then( m => m.StockDetailPageModule)
   },
   {
-    path: 'item-info',
+    path: 'item-info/:pid',
     loadChildren: () => import('./item-info/item-info.module').then( m => m.ItemInfoPageModule)
   },
+  // {
+  //   path: 'stock-checker/edit-qty/:pid',
+  //   pathMatch: 'full',
+  //   loadChildren: () => import('./item-info/item-info.module').then( m => m.ItemInfoPageModule)
+  // },
 ];
 
 @NgModule({
   imports: [
+    ReorderPageModule,
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]

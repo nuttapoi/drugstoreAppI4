@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Supplier } from 'src/app/models/supplier';
 import { ReportService } from '../services/report.service';
-import { NgZone } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-inventory',
@@ -12,17 +12,16 @@ export class InventoryPage implements OnInit {
   suppliers: Supplier[] = [];
   pageID: any;
   constructor(
+    private changeRef: ChangeDetectorRef,
     private reportService: ReportService,
-    private zone: NgZone
   ) {
   }
 
   ngOnInit() {
       this.reportService.getInvSupplier()
       .subscribe(res => {
-          this.zone.run(() => {
             this.suppliers = res;
-          });
+            this.changeRef.markForCheck();
       });
   }
 

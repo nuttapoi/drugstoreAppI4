@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../services/report.service';
 import { Supplier } from 'src/app/models/supplier';
-import { NgZone } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-reorder',
@@ -9,20 +10,24 @@ import { NgZone } from '@angular/core';
   styleUrls: ['./reorder.page.scss'],
 })
 export class ReorderPage implements OnInit {
- suppliers: Supplier[] = [];
+  // stocks$: Observable<Stock[]>;
+  suppliers: Supplier[] = [];
+  // suppliers: Observable<Supplier[]>;
   pageID: any;
   constructor(
-    private reportService: ReportService,
-    private zone: NgZone
+    private changeRef: ChangeDetectorRef,
+    private reportService: ReportService
   ) {
   }
 
   ngOnInit() {
       this.reportService.getMinSupplier()
       .subscribe(res => {
-          this.zone.run(() => {
-            this.suppliers = res;
-          });
+          this.suppliers = res;
+          this.changeRef.markForCheck();
       });
     }
+  // ngOnInit() {
+  //     this.suppliers = this.reportService.getMinSupplier();
+  //   }
 }

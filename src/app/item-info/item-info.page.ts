@@ -11,6 +11,7 @@ import { ReportService } from '../services/report.service';
 import { PresentToast } from '../services/present-toast';
 import { ItemBarcode } from '../models/item-barcode';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-item-info',
@@ -20,22 +21,33 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class ItemInfoPage implements OnInit {
     isValidFormat = true;
     toast: any;
-    stocks$: Observable<Stock[]>;
-    textSearch: string;
+    // stocks$: Observable<Stock[]>;
+    // textSearch: string;
     itemsDetail: ItemBarcode[] = [];
-    itemsHeader: any;
-    private searchTerms = new Subject<string>();
+    // itemsHeader: any;
+    productID: string;
+    // private searchTerms = new Subject<string>();
 
     constructor(
       // private barcodeScanner: BarcodeScanner,
+      private actRoute: ActivatedRoute,
       private reportService: ReportService,
       private toastContrl: PresentToast,
-      private camera: Camera,
-      private router: Router
-      ) {}
+      // private camera: Camera,
+      // private router: Router
+      ) {
+        this.productID = this.actRoute.snapshot.params.pid;
+      }
+
+      ngOnInit() {
+        this.reportService.getBarcodeByID(this.productID)
+          .subscribe(res => {this.itemsDetail = res;
+          });
+
+      }
     // Push a search term into the observable stream.
     // search(term: string): void {
-    search(term): void {
+/*     search(term): void {
       this.searchTerms.next(term);
     }
     ngOnInit(): void {
@@ -63,7 +75,7 @@ export class ItemInfoPage implements OnInit {
         this.textSearch = '';
         this.searchTerms.next('ดpเH');
       }
-    }
+    } */
 
     saveEditBarcode() {
       this.isValidFormat = true;
@@ -85,7 +97,7 @@ export class ItemInfoPage implements OnInit {
       }
     }
 
-    updatePhoto() {
+/*     updatePhoto() {
       if (this.itemsHeader.productID) {
       const options: CameraOptions = {
         quality: 90,
@@ -115,5 +127,5 @@ export class ItemInfoPage implements OnInit {
         // Handle error
       });
     }
-  }
+  } */
 }

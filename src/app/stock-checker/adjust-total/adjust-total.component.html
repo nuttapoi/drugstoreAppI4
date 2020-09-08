@@ -17,7 +17,10 @@
   </ul>
   <ion-list *ngIf="stockDetail">
     <ion-item color="primary" lines="none" class="myFont">
-      <ion-label>{{stockDetail.businessName}} [{{stockDetail.unitNameA}}]</ion-label>
+      <a routerLink="/item-info/{{stockDetail.productID}}" routerDirection="forward">
+        <ion-icon name="barcode" color="light" size="large"></ion-icon>
+      </a>
+      <ion-label> {{stockDetail.businessName}} [{{stockDetail.unitNameA}}]</ion-label>
     </ion-item>
     <ion-item>  
         <ion-thumbnail slot="start">

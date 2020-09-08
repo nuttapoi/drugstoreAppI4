@@ -5,7 +5,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-      <div *ngFor="let item of suppliers" class="supplierList">
+      <div *ngFor="let item of (suppliers | async)?.results" class="supplierList">
         <a routerLink="2/{{item.id}}" routerDirection="forward">
              {{item.name}}
         </a>

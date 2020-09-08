@@ -40,11 +40,6 @@ export class AppComponent {
       icon: 'barcode'
     },
     {
-      title: 'รูปสินค้า',
-      url: '/item-info',
-      icon: 'images'
-    },
-    {
       title: 'ตั้งค่า',
       url: '/setting',
       icon: 'options'

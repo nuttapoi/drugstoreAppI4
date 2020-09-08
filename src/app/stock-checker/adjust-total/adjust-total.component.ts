@@ -137,6 +137,7 @@ export class AdjustTotalComponent implements OnInit {
           // this.camera.DestinationType.FILE_URI gives file URI saved in local
           // this.camera.DestinationType.DATA_URL gives base64 URI
           const base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.stockDetail.imageBase64 = base64Image;
           const upDateImage = { productID : this.stockDetail.productID,
           imageBase64 : base64Image};
           this.reportService.UpdateImage(upDateImage)
