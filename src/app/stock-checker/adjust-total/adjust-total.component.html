@@ -28,9 +28,12 @@
         </ion-thumbnail>  
         <ion-label class="myFont">[ราคา: {{stockDetail.saleA}}] [ทุนล่าสุด: {{stockDetail.latestCost | number:'0.0-2'}}]</ion-label>  
     </ion-item>  
-    <ion-item class="myFont">[เหลือ: {{stockDetail.qtyNowAll}}] เหลือจริง: 
+    <ion-item class="myFont">เหลือจริง: 
       <ion-input class="form-control" type="number" [(ngModel)]="stockDetail.qtyActual"></ion-input>
     </ion-item>
+<!--     <ion-item class="myFont">[เหลือ: {{stockDetail.qtyNowAll}}] เหลือจริง: 
+      <ion-input class="form-control" type="number" [(ngModel)]="stockDetail.qtyActual"></ion-input>
+    </ion-item> -->
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end">
   <ion-fab-button (click)="saveQty()">

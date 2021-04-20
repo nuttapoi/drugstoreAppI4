@@ -35,9 +35,13 @@
     <ion-card-content>
     <form (ngSubmit)="saved()">
       <ion-item class="myFont">
-        <ion-label>url</ion-label>
+        <ion-label>url1</ion-label>
         <ion-input type="text" [(ngModel)]="serverName" name="server" class="form-control" placeholder="http://192.168.1.5:3001"></ion-input>
       </ion-item>
+      <!-- <ion-item class="myFont">
+        <ion-label>url2</ion-label>
+        <ion-input type="text" [(ngModel)]="serverHQ" name="serverHQ" class="form-control" placeholder="http://192.168.1.5:3001"></ion-input>
+      </ion-item> -->
       <ion-button type="submit" fill="outline">
         <ion-icon slot="start" name="save" color=primary size="large"></ion-icon>
         บันทึก

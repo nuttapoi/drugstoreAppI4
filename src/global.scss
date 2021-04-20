@@ -30,6 +30,19 @@
 /* @import '~@swimlane/ngx-datatable/assets/icons.css';
 
 /* HeroSearch private styles */
+@import '~animate.css/animate.min.css';
+ 
+.cart-modal {
+  --height: 50%;
+  --border-radius: 10px;
+  padding: 25px;
+}
+
+.custom-block {
+      font-size: small;
+      background-color: #4c8dff !important;
+   }
+
 .search-result li {
   overflow: hidden;
   height: 2em;
@@ -70,6 +83,9 @@ ul.search-result {
   padding-left: 0;
 }
 
+.primary-back{
+    background-color: #4c8dff;
+}
 .myDiv {
     background-color: #4c8dff !important;
     border-bottom-style: solid;
@@ -99,8 +115,19 @@ ul.search-result {
 }
 
 .myFont { 
+    white-space: nowrap;
     font-size: smaller !important;
     height: 3em; 
+    overflow:hidden !important; 
+    text-overflow: ellipsis !important;
+}
+
+#bg-border {
+  font-size: smaller;
+  margin-left: 1em;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-left-color: #989aa2;
 }
 
 .supplierList {

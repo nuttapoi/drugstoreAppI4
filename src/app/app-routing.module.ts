@@ -37,6 +37,10 @@ const routes: Routes = [
     loadChildren: () => import('./reorder/reorder.module').then( m => m.ReorderPageModule)
   },
   {
+    path: 'yeepua',
+    loadChildren: () => import('./yeepua/yeepua.module').then( m => m.YeepuaPageModule)
+  },
+  {
     path: 'inventory/:pid/:sid',
     loadChildren: () => import('./stock-detail/stock-detail.module').then( m => m.StockDetailPageModule)
   },
@@ -47,6 +51,10 @@ const routes: Routes = [
   {
     path: 'item-info/:pid',
     loadChildren: () => import('./item-info/item-info.module').then( m => m.ItemInfoPageModule)
+  },
+  {
+    path: 'delivery-check',
+    loadChildren: () => import('./delivery-check/delivery-check.module').then( m => m.DeliveryCheckPageModule)
   },
   // {
   //   path: 'stock-checker/edit-qty/:pid',

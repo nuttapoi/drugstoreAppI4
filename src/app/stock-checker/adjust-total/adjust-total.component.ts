@@ -49,7 +49,7 @@ export class AdjustTotalComponent implements OnInit {
 
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.reportService.searchProduct(term)),
-    );
+      );
     }
 
     ionViewWillEnter() {
@@ -59,6 +59,7 @@ export class AdjustTotalComponent implements OnInit {
     onSelect(select: Stock): void {
       if (select) {
         this.stockDetail = select;
+        this.stockDetail.qtyActual = 0;
         this.reportService.GetImage(select.productID).then((result: {imageBase64: 'string'}) => {
           this.stockDetail.imageBase64 = 'data:image/jpeg;base64,' + result.imageBase64;
         }, (err) => {
@@ -105,6 +106,7 @@ export class AdjustTotalComponent implements OnInit {
           result => {
             if (result  && result.length > 0 ) {
             this.stockDetail = result[0];
+            this.stockDetail.qtyActual = 0;
             }
           }
         );
@@ -115,7 +117,7 @@ export class AdjustTotalComponent implements OnInit {
 
     navEditLot() {
       if (this.blnEditLot) {
-        this.router.navigateByUrl('/stock-checker/edit-lot');
+        // this.router.navigateByUrl('/stock-checker/edit-lot');
       }
     }
 

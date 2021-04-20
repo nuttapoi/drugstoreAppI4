@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button color="primary" slot="start"></ion-menu-button>
+    <ion-item>
+        <ion-input inputmode="numberic" clear-input="true" [(ngModel)]="returnID" 
+        (keypress)="getCheckItems($event)" placeholder="ป้อนเลขใบเบิก"></ion-input>
+        <ion-toggle color="primary" [(ngModel)]="finalCheck" (ionChange)="checkDiff()"></ion-toggle>
+    </ion-item>
+    <!-- <ion-button (click)="getCheckItems()" fill="clear" slot="end"> -->
+    <!-- </ion-button> -->
+  <!--     <ion-searchbar placeholder="ป้อนเลขใบเบิก" inputmode="numberic"
+        animated="true" [(ngModel)]="returnID" (keypress)="getCheckItems($event)"></ion-searchbar> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- <ion-icon name="add" color="primary"></ion-icon> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <ion-checkbox style="width: 15px;" [(ngModel)]="scanMode"></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <input type="numeric" style="width: 40px;" [(ngModel)]="initQty" (keypress)="moveNext(move1)"/>
+        </ion-col>
+        <!-- <ion-searchbar [disabled]="finalCheck" #move1 placeholder="scan" animated="true" [(ngModel)]="barcode" (keypress)="barcodescan($event)"></ion-searchbar> -->
+        <ion-col size="9">
+          <input *ngIf="scanMode" style="width: 60%;" type="numeric" [disabled]="finalCheck" #move1 placeholder="scan" [(ngModel)]="barcode" (keypress)="barcodescan($event)"/>
+          <input *ngIf="!scanMode" style="width: 60%;" type="text" #searchBox id="search-box" [(ngModel)]="textSearch" (keyup)="search(searchBox.value)" placeholder="พิมพ์ชื่อสินค้า"/>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+    
+ <!--  <ion-item>
+  <ion-checkbox style="width:20px;" [(ngModel)]="scanMode"></ion-checkbox>
+  <ion-item>
+  <input style="margin-left: 8px; width:15%;" type="numeric" [(ngModel)]="initQty" (keypress)="moveNext(move1)"/>
+  <input *ngIf="scanMode"  style="margin-left: 4px; width:70%;" type="numeric" [disabled]="finalCheck" #move1 placeholder="scan" [(ngModel)]="barcode" (keypress)="barcodescan($event)"/>
+  <input *ngIf="!scanMode" style="margin-left: 4px; width:70%;" type="text" #searchBox id="search-box" [(ngModel)]="textSearch" (keyup)="search(searchBox.value)" placeholder="พิมพ์ชื่อสินค้า"/>
+  </ion-item>
+  </ion-item> -->
+  
+  <ul class="search-result">
+    <li *ngFor="let stock of stocks$ | async"  (click)="onSelect(stock)"> {{stock.businessName}}></li>
+  </ul>
+<!--   <ion-card>
+    <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div style="color:blue;font-size: smaller;">
+            {{ requireInput.businessName }} </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3">
+          <ion-input #move2 type="number" [(ngModel)]= "requireInput.resultQty" (keypress)="addCheckPress($event,move1)"></ion-input>
+        </ion-col>
+        <ion-col size="6" class="ion-text-end">
+          <div style="color:blue;font-size: smaller;">
+          {{ requireInput.unitNameA }}</div>
+        </ion-col>
+        <ion-col size="3" class="ion-align-self-right">
+          <ion-button color="medium" fill="clear" (click)="addCheck(move1)">
+            <ion-icon name="add" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card> -->
+  <ion-button [disabled]="finalCheck" expand="full" 
+  fill="outline" (click)="clear()">
+    <ion-icon slot="end" name="trash"></ion-icon>{{ docText}} [{{resultCount | async }} OF {{requireCount | async}}]</ion-button>
+
+  <!-- <ion-button [disabled]="finalCheck" fill="clear" slot="start" (click)="clear()"><ion-icon size="large" name="trash"></ion-icon></ion-button> -->
+  <ion-item-sliding [disabled]="finalCheck" *ngFor="let p of itemsResult" (ionSwipe)="remove(p)">
+    <ion-item>                            
+      <div id="oneline">{{ p.businessName }}</div>    
+      <ion-item slot="end">                                                 
+        <div style="font-size: smaller;">{{ p.unitNameA }}</div>  
+        <div slot="end" [ngStyle]="{'color': (p.diffQty > 0) ? 'green' : 'red' }">{{ p.diffQty}} </div> 
+      </ion-item>                                                  
+<!--       <ion-item>
+        <ion-input type="number" pattern="[0-9]*" formControlName="salequantity" [(ngModel)]="returnID" min="0" max="10" placeholder="Qty"></ion-input>
+        <button ion-button width-30  (click)="checkoutModal()">xx</button>
+      </ion-item>   -->                          
+    </ion-item>               
+    <ion-item-options side="start">                           
+      <ion-button color="danger"(click)="remove(p)"><ion-icon name="close"></ion-icon>Remove</ion-button>
+    </ion-item-options>
+  </ion-item-sliding>
+<!--  100%ok   <ion-grid>
+      <ion-row class="ion-text-nowrap" *ngFor="let p of itemsResult">
+        <ion-col size="2">
+          <ion-button size="small" color="light" (click)="remove(p)"><ion-icon name="close"></ion-icon></ion-button>
+        </ion-col>
+        <ion-col size="5" class="ion-text-start">
+          <div style="font-size: smaller;">{{ p.businessName }}</div>
+        </ion-col>
+        <ion-col size="3" class="ion-text-end">
+          <div style="font-size: smaller;">{{ p.unitNameA}} </div>
+        </ion-col>
+        <ion-col size="2" class="ion-text-end">
+          <div [ngStyle]="{'color': (p.diffQty > 0) ? 'green' : 'red' }">{{ p.diffQty}} </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+</ion-content>
+<!-- <ion-footer>
+   <ion-item>
+     <ion-label>เปรียบเทียบ</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="finalCheck" (ionChange)="checkDiff()"></ion-toggle>
+  </ion-item>
+</ion-footer> -->

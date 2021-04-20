@@ -9,6 +9,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 })
 export class SettingPage implements OnInit {
   serverName: any;
+  serverHQ: any;
 
   constructor(
     private reportService: ReportService,
@@ -19,10 +20,14 @@ export class SettingPage implements OnInit {
       this.reportService.GetUrl().then((data: any) => {
         this.serverName = data;
       });
+      this.reportService.GetUrlHQ().then((data: any) => {
+        this.serverHQ = data;
+      });
   }
 
   saved() {
     this.reportService.SaveUrl(this.serverName || 'http://localhost:3001');
+    this.reportService.SaveUrlHQ(this.serverHQ || 'http://localhost:3001');
   }
 
   openWebpage() {

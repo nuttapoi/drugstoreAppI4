@@ -20,7 +20,7 @@
   <ion-list *ngFor="let item of itemsDetail">
     <ion-item lines="none" class="myFont">
       <ion-checkbox [(ngModel)]="item.barcodeOnly"></ion-checkbox>
-      <ion-label>{{item.unitNameS}}</ion-label>
+      <ion-label>{{item.saleA }} /{{item.unitNameS}}</ion-label>
       <ion-icon name="barcode" color="primary"></ion-icon>
       <ion-input class="form-control" type="tel" [(ngModel)]="item.saleBarcode"></ion-input>
     </ion-item>

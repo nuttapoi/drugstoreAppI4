@@ -21,7 +21,7 @@ export class InventoryPage implements OnInit {
       this.reportService.getInvSupplier()
       .subscribe(res => {
             this.suppliers = res;
-            this.changeRef.markForCheck();
+            // this.changeRef.markForCheck();
       });
   }
 

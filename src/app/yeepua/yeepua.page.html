@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start" color="primary"></ion-menu-button>
+<!--     <ion-item lines="none">
+        <input type="text" #searchBox id="search-box" [(ngModel)]="textSearch" (keyup)="search(searchBox.value)" placeholder="พิมพ์ชื่อสินค้า">
+    </ion-item> -->
+    <ion-searchbar animated="true" [(ngModel)]="textSearch" (keypress)="search($event)"></ion-searchbar>
+    <ion-button (click)="barcodeScan()" fill="clear" slot="end">
+      <ion-icon name="barcode" color="primary" size="large"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+<!--   <ul class="search-result">
+    <li *ngFor="let item of itemsBuy$ | async"  (click)="addToCart(item)"> {{item.businessName}} @{{item.salePrice}}/{{item.saleUnitName}} </li>
+  </ul> -->
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCart()" #cart>
+      <div class="cart-length">{{ cartItemCount | async }}</div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>  
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of itemsBuy$ | async" sizeLg="2" sizeMd="3" sizeXs="4" >
+          <!-- <ion-card-header>
+              <ion-card-subtitle>{{item.businessName}}</ion-card-subtitle>
+          </ion-card-header> -->
+            <div class="myFont">{{item.businessName}}</div>
+            <div class="square" [style.background-image]="'url(' + url + '/productImages/' + item.productID +'.jpg)'"></div>
+            <!-- <div class="img-wrapper">
+              <ion-img src = "{{url}}/productImages/{{item.productID}}.jpg"></ion-img>
+            </div> -->
+            <ion-item class="myFont">  
+              <ion-text color="danger">{{item.salePrice}}/{{item.saleUnitName}}</ion-text>  
+              <ion-button (click)="addToCart(item)" fill="clear" slot="end">
+                <ion-icon name="add" color="primary" size="large"></ion-icon>
+              </ion-button>
+            </ion-item>  
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<!--   <ion-list>
+    <ion-item *ngFor="let item of cartx">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3">
+            <img [src]="item.imageBase64">  
+          </ion-col>
+          <ion-col size="9" class="ion-text-end">
+            <ion-row>
+              <ion-col class="custom-block"> {{ item.businessName }}</ion-col>
+            </ion-row>
+            <ion-row class="ion-align-items-center">
+              <ion-col size="2" class="ion-align-self-center">
+                <ion-button color="primary" fill="clear" (click)="decreaseCartItem(item)">
+                  <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="1" class="ion-align-self-center">
+                {{ item.itemQTY }} 
+              </ion-col>
+
+              <ion-col size="2" class="ion-align-self-center">
+                <ion-button color="primary" fill="clear" (click)="increaseCartItem(item)">
+                  <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="2" offset="5">
+                <ion-button color="primary" fill="clear" (click)="removeCartItem(item)">
+                  <ion-icon name="close-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="8">
+              <small> {{item.salePrice}}/{{item.saleUnitName}} </small>
+            </ion-col>
+            <ion-col size="4" class="ion-text-end">
+              {{item.itemValue}}
+            </ion-col>
+          </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list> -->
+</ion-content>

@@ -1,0 +1,21 @@
+/* ion-item {
+   --border-style: solid;
+   --border-color: #acabab;
+   --border-radius: 3vw;
+   --border-width: 1px;
+//    --background:rgb(78, 214, 255);
+//    --background-focused:#d7ffd3; 
+//    --background-activated: rgb(186, 239, 251); 
+} */
+
+ion-content {
+   --padding-end: 3px;
+   --padding-start: 3px;
+}
+
+#oneline {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  font-size: smaller;
+}

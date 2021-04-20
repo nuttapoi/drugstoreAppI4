@@ -71,14 +71,15 @@ export class HomePage implements OnInit {
       .subscribe(
         res =>  {
           this.zone.run(() => {
-          this.rows = res;
-          for (const entry of res) {
-            this.chartLabels.push(formatDate(entry.period, 'dd/MM', 'en-US'));
-            this.chartData[0].data.push(entry.sale);
-            this.chartData[1].data.push(entry.profit);
-            // this.chartData[2].data.push(entry.margin);
-          }
-        });
+            if (res && res.length > 0) {
+              this.rows = res;
+              for (const entry of res) {
+                this.chartLabels.push(formatDate(entry.period, 'dd/MM', 'en-US'));
+                this.chartData[0].data.push(entry.sale);
+                this.chartData[1].data.push(entry.profit);
+              }
+            }
+          });
         }
       );
   }

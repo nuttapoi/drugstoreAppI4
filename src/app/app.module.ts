@@ -11,11 +11,16 @@ import { AppRoutingModule } from './app-routing.module';
 // import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ChartsModule } from 'ng2-charts';
-import { ReportService } from './services/report.service';
+import { NativeHttpInterceptor } from './services/native-http.interceptor';
 import { Camera } from '@ionic-native/camera/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
+import { ReportService } from './services/report.service';
+import { YeepuaService } from './services/yeepua.service';
+import { CartModalPageModule } from './yeepua/cart-modal/cart-modal.module';
+import { DeliveryCheckService } from './services/delivery-check.service';
 // import { ServicesModule } from './services/services.module';
 // import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -24,6 +29,7 @@ import { Camera } from '@ionic-native/camera/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    CartModalPageModule,
     BrowserModule,
     HttpClientModule,
     // NgxDatatableModule,
@@ -33,6 +39,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     AppRoutingModule
   ],
   providers: [
+    HTTP,
     Camera,
     StatusBar,
     SplashScreen,
@@ -40,7 +47,10 @@ import { Camera } from '@ionic-native/camera/ngx';
     ChartsModule,
     InAppBrowser,
     ReportService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    YeepuaService,
+    DeliveryCheckService,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: NativeHttpInterceptor,  multi: true }
   ],
   bootstrap: [AppComponent]
 })

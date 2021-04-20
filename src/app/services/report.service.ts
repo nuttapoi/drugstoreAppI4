@@ -1,7 +1,7 @@
 import { Injectable, OnInit, Directive } from '@angular/core';
 // import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
+import { Observable, throwError, of, BehaviorSubject, from } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Plugins } from '@capacitor/core';
 // import 'rxjs/add/operator/toPromise';
@@ -14,7 +14,7 @@ import { ItemBarcode } from '../models/item-barcode';
 import { ItemImage } from '../models/item-image';
 import { PresentToast } from './present-toast';
 import { get, set } from './storage.service';
-
+import { HTTP } from '@ionic-native/http/ngx';
 // import { StorageService } from './storage.service';
 
 // const httpOptions = {
@@ -32,12 +32,18 @@ const httpOptions = {
 })
 export class ReportService {
     public baseUrl = 'http://localhost:3001';
+    public baseUrlHQ = 'http://localhost:3001';
     constructor(
         private http: HttpClient,
+        private httpNative: HTTP,
         public presentToast: PresentToast,
         ) {
           this.GetUrl().then((data: any) =>  {
             this.baseUrl = data;
+          });
+
+          this.GetUrlHQ().then((data: any) =>  {
+            this.baseUrlHQ = data;
           });
     }
 
@@ -45,8 +51,16 @@ export class ReportService {
     return await get('server') || 'http://localhost:3001';
   }
 
+  async GetUrlHQ() {
+    return await get('serverHQ') || 'http://localhost:3001';
+  }
+
   SaveUrl(val) {
     set('server', this.baseUrl = val || 'http://localhost:3001');
+  }
+
+  SaveUrlHQ(val) {
+    set('serverHQ', this.baseUrlHQ = val || 'http://localhost:3001');
   }
 
 
@@ -138,6 +152,15 @@ export class ReportService {
             );
     }
 
+    getInvSupplier_native(): Observable<any> {
+      const responseData = this.httpNative
+            .get(`${this.baseUrl}/api/rpt_invSupplier`, {}, httpOptions)
+            .then(resp => JSON.parse(resp.data))
+            .catch(error => this.handleError(error));
+
+      return from(responseData);
+    }
+
     getInvStock(supID: string): Observable<MinStock[]> {
         const url = `${this.baseUrl}/api/rpt_invStock/${supID}`;
         return this.http
@@ -189,6 +212,11 @@ export class ReportService {
               catchError(this.handleError)
             );
      }
+    // updateStock(stockDetail: Stock) {
+    //     const url = `${this.baseUrl}/api/datacollector/${stockDetail.productID}`;
+    //     return this.httpNative
+    //         .put(url, JSON.stringify(stockDetail), httpOptions);
+    //  }
 
     barcodeItemAdjust(barcode: string): Observable<Stock[]> {
         const url = `${this.baseUrl}/api/datacollector/${barcode}`;
