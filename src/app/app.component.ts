@@ -16,16 +16,16 @@ const { SplashScreen } = Plugins;
 
 export class AppComponent {
   public appPages = [
-    // {
-    //   title: 'ยอดขาย',
-    //   url: '/home',
-    //   icon: 'bar-chart-outline'
-    // },
-    // {
-    //   title: 'ขายอะไรไป',
-    //   url: '/kaidee',
-    //   icon: 'cart'
-    // },
+    {
+      title: 'ยอดขาย',
+      url: '/home',
+      icon: 'bar-chart-outline'
+    },
+    {
+      title: 'ขายอะไรไป',
+      url: '/kaidee',
+      icon: 'cart'
+    },
     {
       title: 'คลังทั้งหมด',
       url: '/inventory',
@@ -46,11 +46,12 @@ export class AppComponent {
     //   url: '/yeepua',
     //   icon: 'alarm'
     // },
-    {
-      title: 'ส่งของ',
-      url: '/delivery-check',
-      icon: 'checkmark-circle-outline'
-    },
+    // lookin
+    // {
+    //   title: 'ส่งของ',
+    //   url: '/delivery-check',
+    //   icon: 'checkmark-circle-outline'
+    // },
     {
       title: 'ตั้งค่า',
       url: '/setting',
@@ -61,7 +62,6 @@ export class AppComponent {
   constructor(
     private reportService: ReportService,
     private platform: Platform,
-    // private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router
   ) {

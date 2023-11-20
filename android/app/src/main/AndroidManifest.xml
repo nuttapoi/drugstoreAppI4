@@ -17,6 +17,7 @@
             android:name="connect.drugstoresoft.mobile.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
+            android:exported="true"
             android:launchMode="singleTask">
 
             <intent-filter>

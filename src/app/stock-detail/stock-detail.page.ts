@@ -22,7 +22,6 @@ export class StockDetailPage implements OnInit {
       // first medthod
       this.supID = this.actRoute.snapshot.params.sid;
       this.pageID = this.actRoute.snapshot.params.pid;
-      // this.actRoute.parent.params.subscribe()
      }
 
   ngOnInit() {

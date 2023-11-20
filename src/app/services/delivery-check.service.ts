@@ -17,7 +17,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DeliveryCheckService {
-  // items$: Observable<ItemCheck[]>;
   resultItem: ItemCheck[] = [];
   requireItem: ItemCheck[] = [];
   requireItemCount = new BehaviorSubject(0);
@@ -43,11 +42,6 @@ export class DeliveryCheckService {
           this.baseUrl = data;
         });
   }
-  // ngOnInit(): void {
-  //   // this.items$ = this.getBuyItemByName('t');
-  //   this.getBuyItemByName('t').subscribe( res => this.items = res );
-  //   console.log(this.items + 'init service');
-  // }
 
   private async GetUrlHQ() {
     return await get('server') || 'http://localhost:3001';
@@ -77,7 +71,6 @@ export class DeliveryCheckService {
     initRequireInput(): ItemCheck {
       return { returnID: '', productID: '000000', businessName: '-', unitNameA: '-',
         unitNameX: 1, returnQty: 0, resultQty: 0, diffQty: 0 };
-      // return this.requireInput;
     }
 
     getResultItems() {
@@ -103,17 +96,8 @@ export class DeliveryCheckService {
       return this.resultItemCount;
     }
 
-  /*   isExistRequireItems(): boolean {
-      if (this.requireItem  && this.requireItem.length > 0 ) {
-        return true;
-      }
-      return false;
-    } */
-
     addCheck(select: ItemCheck): void {
       if (select) {
-        // const clone = Object.assign({}, select);
-        // find item in array result
         const foundItem: ItemCheck = this.findById(this.resultItem, select.productID);
         if (!foundItem && select.resultQty !== 0 ) {
           // รายการใหม่
@@ -164,11 +148,6 @@ export class DeliveryCheckService {
     }
 
     updateRequireInput(userIn: ItemCheck, qty): ItemCheck {
-        // let foundItem: ItemCheck = this.findById(this.requireItem, userIn.productID);
-        // if (foundItem) {
-        //   // foundItem.resultQty = 0;
-        //   return this.deepClone(foundItem);
-        // } else {
           return { returnID: this.returnID, productID: userIn.productID,
             businessName: userIn.businessName,
             unitNameA: userIn.unitNameA, unitNameX: userIn.unitNameX,

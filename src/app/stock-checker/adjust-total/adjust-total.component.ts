@@ -8,7 +8,9 @@ import { Stock } from 'src/app/models/stock';
 import { ReportService } from '../../services/report.service';
 import { PresentToast } from '../../services/present-toast';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+// import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Plugins, CameraOptions ,CameraResultType, CameraSource } from '@capacitor/core';
+const { Camera } = Plugins;
 
 @Component({
   selector: 'app-adjust-total',
@@ -31,7 +33,7 @@ export class AdjustTotalComponent implements OnInit {
       private toastContrl: PresentToast,
       private barcodeScanner: BarcodeScanner,
       private router: Router,
-      private camera: Camera
+      // private camera: Camera
 
       ) {
       }
@@ -59,7 +61,7 @@ export class AdjustTotalComponent implements OnInit {
     onSelect(select: Stock): void {
       if (select) {
         this.stockDetail = select;
-        this.stockDetail.qtyActual = 0;
+        // this.stockDetail.qtyActual = 0;
         this.reportService.GetImage(select.productID).then((result: {imageBase64: 'string'}) => {
           this.stockDetail.imageBase64 = 'data:image/jpeg;base64,' + result.imageBase64;
         }, (err) => {
@@ -75,10 +77,7 @@ export class AdjustTotalComponent implements OnInit {
         if (this.stockDetail.qtyActual !== this.stockDetail.qtyNowAll) {
           this.reportService.updateStock(this.stockDetail).subscribe(
             result => {
-              // this.stocks = Observable.of<Stock[]>([]);
-              // this.searchTerms.next('ดpเH');
               this.stockDetail = null;
-              // this.search(this.textSearch);
               this.toastContrl.show('บันทึกเรียบร้อย');
             },
             error => {
@@ -88,17 +87,6 @@ export class AdjustTotalComponent implements OnInit {
         }
       }
     }
-    /*  scan() {
-        Debug purpose
-        this.reportService.barcodeItemAdjust('8858862599871').subscribe(
-          result => {
-            if (result && result.length > 0) {
-            this.stockDetail = result[0];
-            console.log(result[0]);
-            }
-          }
-        );
-    } */
 
     scan() {
       this.barcodeScanner.scan().then(barcodeData => {
@@ -116,12 +104,45 @@ export class AdjustTotalComponent implements OnInit {
     }
 
     navEditLot() {
-      if (this.blnEditLot) {
-        // this.router.navigateByUrl('/stock-checker/edit-lot');
+      // if (this.blnEditLot) {
+      //   this.router.navigateByUrl('/stock-checker/edit-lot');
+      // }
+    }
+
+    // capacitor camera
+  async updatePhoto() {
+      if (this.stockDetail) {
+        const oldImageBase64 = this.stockDetail.imageBase64;
+        const image = await Camera.getPhoto({
+          quality: 90,
+          allowEditing: false,
+          source: CameraSource.Photos,
+          width: 144,
+          height: 144,
+          resultType: CameraResultType.Base64
+        });
+
+        var imageData = image.base64String;
+        // Can be set to the src of an image now
+        const base64Image = 'data:image/jpeg;base64,' + imageData;
+        this.stockDetail.imageBase64 = base64Image;
+        const upDateImage = { productID : this.stockDetail.productID,
+        imageBase64 : base64Image};
+
+        this.reportService.UpdateImage(upDateImage)
+          .subscribe(res => res,
+          err => this.stockDetail.imageBase64 = oldImageBase64)
+          , (err) => {
+          this.stockDetail.imageBase64 = oldImageBase64;
+          console.log(err);
+        // Handle error
+        };
+
       }
     }
 
-    updatePhoto() {
+   // cordova-camera
+   /* updatePhoto() {
       const options: CameraOptions = {
         quality: 90,
         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -151,5 +172,5 @@ export class AdjustTotalComponent implements OnInit {
           // Handle error
         });
       }
-    }
+    } */
 }

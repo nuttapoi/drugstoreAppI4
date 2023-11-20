@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ChartsModule } from 'ng2-charts';
-// import {TableModule} from 'primeng/table';
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     IonicModule,
     NgxDatatableModule,
-    // TableModule,
     ChartsModule,
     RouterModule.forChild([
       {
